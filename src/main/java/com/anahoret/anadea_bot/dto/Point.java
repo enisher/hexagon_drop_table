@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -28,6 +29,9 @@ public class Point
 
     public Set<Point> neighbors()
     {
+        if (i < 0 || j < 0)
+            return Collections.emptySet();
+
         final HashSet<Point> result = new HashSet<>();
 
         result.add(right());
@@ -47,7 +51,8 @@ public class Point
         if (!jumpsAvailable)
             return neighbors;
 
-        final Set<Point> allCells = neighbors.stream().flatMap(p -> p.neighbors().stream())
+        final Set<Point> allCells = neighbors.stream()
+                .flatMap(p -> p.neighbors().stream())
                 .collect(Collectors.toSet());
 
         allCells.remove(this);
