@@ -31,6 +31,13 @@ public class Strategy
         return new ClientMove(new int[]{0, 2}, new int[]{0, 3});
     }
 
+//    public List<ClientMove> allValidMoves(Game game, int color)
+//    {
+//        final List<Point> myCells = game.getBoard().findAll(color);
+//
+//        myCells.stream().flatMap(point -> point.neighbors().stream().filter())
+//    }
+
     private Point firstEmptyNeighbor(Point myCell, Board board)
     {
         if (board.checkIfEmpty(myCell.left()))

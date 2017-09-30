@@ -5,6 +5,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.Arrays;
+import java.util.List;
+
 @AllArgsConstructor
 @Getter
 @ToString
@@ -15,6 +18,17 @@ public class Point
 
     public int[] toArray() {
         return new int[] {i, j};
+    }
+
+    public List<Point> neighbors() {
+        return Arrays.asList(
+                right(),
+                upRight(),
+                upLeft(),
+                left(),
+                downLeft(),
+                downRight()
+        );
     }
 
     public Point left()
