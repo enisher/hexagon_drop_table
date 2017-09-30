@@ -2,6 +2,7 @@ package com.anahoret.anadea_bot.controller.api;
 
 import com.anahoret.anadea_bot.GameStorage;
 import com.anahoret.anadea_bot.GreedyStrategy;
+import com.anahoret.anadea_bot.SmartGreedy;
 import com.anahoret.anadea_bot.Strategy;
 import com.anahoret.anadea_bot.dto.ClientMove;
 import com.anahoret.anadea_bot.dto.Game;
@@ -19,7 +20,7 @@ public class GameController {
     private GameStorage gameStorage;
 
     @Autowired
-    private GreedyStrategy strategy;
+    private SmartGreedy strategy;
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody

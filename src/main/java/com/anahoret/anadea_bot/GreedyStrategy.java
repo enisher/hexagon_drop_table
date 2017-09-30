@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class GreedyStrategy implements IStrategy{
 
     @Autowired
-    Strategy randomStrategy;
+    protected Strategy randomStrategy;
 
     @Override
     public ClientMove nextMove(Game game, int color) {
@@ -33,7 +33,7 @@ public class GreedyStrategy implements IStrategy{
                 .collect(Collectors.toList());
     }
 
-    private EvaluatedMove evaluate(ClientMove move, Game game, int color){
+    protected EvaluatedMove evaluate(ClientMove move, Game game, int color){
         Board nextBoard = game.getBoard().applyMove(move);
 
 
@@ -46,6 +46,12 @@ public class GreedyStrategy implements IStrategy{
     class EvaluatedMove{
         ClientMove move;
         double score;
+        public EvaluatedMove(){}
+
+        public EvaluatedMove(ClientMove move, double score) {
+            this.move = move;
+            this.score = score;
+        }
 
         public double getScore() {
             return score;
