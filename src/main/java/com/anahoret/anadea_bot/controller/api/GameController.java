@@ -41,7 +41,10 @@ public class GameController {
 
         final Game game = gameStorage.load(gameId);
 
-        return strategy.nextMove(game, color);
+        final ClientMove clientMove = strategy.nextMove(game, color);
+
+        System.out.println("My move = " + clientMove + " gameId = " + gameId);
+        return clientMove;
     }
 
     @RequestMapping(value = "/{gameId}", method = RequestMethod.PUT)
