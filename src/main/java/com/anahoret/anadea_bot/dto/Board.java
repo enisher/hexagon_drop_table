@@ -21,4 +21,18 @@ public class Board {
                 ", cells=" + Arrays.deepToString(cells) +
                 '}';
     }
+
+    public void applyChanges(int[][] changes)
+    {
+        for (int[] change : changes)
+        {
+            int i = change[0];
+            int j = change[1];
+            int oldColor = change[2];
+            int newColor = change[3];
+
+
+            cells[i][j] = newColor;
+        }
+    }
 }

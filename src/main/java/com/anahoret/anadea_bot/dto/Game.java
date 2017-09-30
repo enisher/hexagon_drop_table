@@ -27,4 +27,11 @@ public class Game {
                 ", board=" + board +
                 '}';
     }
+
+    public void applyServerMove(ServerMove move)
+    {
+        jumps = move.getJumps();
+
+        board.applyChanges(move.getChanges());
+    }
 }
