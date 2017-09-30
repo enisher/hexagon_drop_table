@@ -1,6 +1,7 @@
 package com.anahoret.anadea_bot.controller.api;
 
 import com.anahoret.anadea_bot.GameStorage;
+import com.anahoret.anadea_bot.Strategy;
 import com.anahoret.anadea_bot.dto.ClientMove;
 import com.anahoret.anadea_bot.dto.Game;
 import com.anahoret.anadea_bot.dto.ResponseStatusDto;
@@ -15,6 +16,9 @@ public class GameController {
 
     @Autowired
     private GameStorage gameStorage;
+
+    @Autowired
+    private Strategy strategy;
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
@@ -34,7 +38,9 @@ public class GameController {
         System.out.println("gameId=" + gameId);
         System.out.println("color=" + color);
 
-        return new ClientMove(new int[]{0,2}, new int[]{0,3});
+        final Game game = gameStorage.load(gameId);
+
+        return strategy.firstValidMove(game, color);
     }
 
     @RequestMapping(value = "/{gameId}", method = RequestMethod.PUT)
