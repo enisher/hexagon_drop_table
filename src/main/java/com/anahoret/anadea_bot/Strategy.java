@@ -15,21 +15,13 @@ public class Strategy
 {
     public ClientMove firstValidMove(Game game, int color)
     {
-        final List<Point> myCells = game.getBoard().findAll(color);
+        final List<ClientMove> clientMoves = allValidMoves(game, color);
 
-        Collections.shuffle(myCells);
+        Collections.shuffle(clientMoves);
 
-        for (Point myCell : myCells)
-        {
-            Point target = firstEmptyNeighbor(myCell, game.getBoard());
-
-            if (target != null)
-            {
-                return new ClientMove(new int[]{myCell.getI(), myCell.getJ()}, target.toArray());
-            }
-        }
-
-        return new ClientMove(new int[]{0, 2}, new int[]{0, 3});
+        return clientMoves.stream()
+                .findFirst()
+                .orElse(new ClientMove(new int[]{0, 2}, new int[]{0, 3}));
     }
 
     public List<ClientMove> allValidMoves(Game game, int color)
