@@ -51,6 +51,19 @@ public class Point
         return allCells;
     }
 
+    public Set<Point> jumps()
+    {
+        final Set<Point> neighbors = neighbors();
+
+        final Set<Point> allCells = neighbors.stream().flatMap(p -> p.neighbors().stream())
+                .collect(Collectors.toSet());
+
+        allCells.remove(this);
+        allCells.removeAll(neighbors);
+
+        return allCells;
+    }
+
     public Point left()
     {
         return new Point(i, j - 1);
