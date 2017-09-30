@@ -3,10 +3,12 @@ package com.anahoret.anadea_bot.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class ClientMove {
 
     public ClientMove(int[] move_from, int[] move_to) {
