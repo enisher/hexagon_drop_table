@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class Strategy
@@ -31,12 +32,19 @@ public class Strategy
         return new ClientMove(new int[]{0, 2}, new int[]{0, 3});
     }
 
-//    public List<ClientMove> allValidMoves(Game game, int color)
-//    {
-//        final List<Point> myCells = game.getBoard().findAll(color);
-//
-//        myCells.stream().flatMap(point -> point.neighbors().stream().filter())
-//    }
+    public List<ClientMove> allValidMoves(Game game, int color)
+    {
+        final Board board = game.getBoard();
+        final List<Point> myCells = game.getBoard().findAll(color);
+
+        return myCells.stream()
+                .flatMap(
+                        moveFrom -> moveFrom.neighbors()
+                                .stream()
+                                .filter(board::checkIfEmpty)
+                                .map(moveTo -> new ClientMove(moveFrom.toArray(), moveTo.toArray()))
+                ).collect(Collectors.toList());
+    }
 
     private Point firstEmptyNeighbor(Point myCell, Board board)
     {
