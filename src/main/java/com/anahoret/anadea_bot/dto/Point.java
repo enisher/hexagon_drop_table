@@ -5,8 +5,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Getter
@@ -16,19 +17,38 @@ public class Point
 {
     private final int i, j;
 
-    public int[] toArray() {
-        return new int[] {i, j};
+    public int[] toArray()
+    {
+        return new int[]{i, j};
     }
 
-    public List<Point> neighbors() {
-        return Arrays.asList(
-                right(),
-                upRight(),
-                upLeft(),
-                left(),
-                downLeft(),
-                downRight()
-        );
+    public Set<Point> neighbors()
+    {
+        final HashSet<Point> result = new HashSet<>();
+
+        result.add(right());
+        result.add(upRight());
+        result.add(upLeft());
+        result.add(left());
+        result.add(downLeft());
+        result.add(downRight());
+
+        return result;
+    }
+
+    public Set<Point> allMoves(boolean jumpsAvailable)
+    {
+        final Set<Point> neighbors = neighbors();
+
+        if (!jumpsAvailable)
+            return neighbors;
+
+        final Set<Point> allCells = neighbors.stream().flatMap(p -> p.neighbors().stream())
+                .collect(Collectors.toSet());
+
+        allCells.remove(this);
+
+        return allCells;
     }
 
     public Point left()

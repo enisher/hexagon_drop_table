@@ -76,7 +76,6 @@ public class Board
 
     public boolean checkIfEmpty(Point point)
     {
-        return validate(point) && getColor(point) == 0;
-
+        return getColor(point) == 0;
     }
 }

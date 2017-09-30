@@ -31,41 +31,12 @@ public class Strategy
 
         return myCells.stream()
                 .flatMap(
-                        moveFrom -> moveFrom.neighbors()
+                        moveFrom -> moveFrom.allMoves(game.jumpsAvailable(color))
                                 .stream()
+                                .filter(board::validate)
                                 .filter(board::checkIfEmpty)
                                 .map(moveTo -> new ClientMove(moveFrom.toArray(), moveTo.toArray()))
                 ).collect(Collectors.toList());
+
     }
-
-    private Point firstEmptyNeighbor(Point myCell, Board board)
-    {
-        if (board.checkIfEmpty(myCell.left()))
-        {
-            return myCell.left();
-        }
-        else if (board.checkIfEmpty(myCell.right()))
-        {
-            return myCell.right();
-        }
-        else if (board.checkIfEmpty(myCell.upLeft()))
-        {
-            return myCell.upLeft();
-        }
-        else if (board.checkIfEmpty(myCell.upRight()))
-        {
-            return myCell.upRight();
-        }
-        else if (board.checkIfEmpty(myCell.downLeft()))
-        {
-            return myCell.downLeft();
-        }
-        else if (board.checkIfEmpty(myCell.downRight()))
-        {
-            return myCell.downRight();
-        }
-
-        return null;
-    }
-
 }

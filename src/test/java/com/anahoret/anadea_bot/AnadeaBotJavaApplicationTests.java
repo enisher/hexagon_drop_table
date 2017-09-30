@@ -25,7 +25,10 @@ public class AnadeaBotJavaApplicationTests {
 		game.setId("1");
 		game.setFirst_turn(true);
 		game.setTraining(false);
-		game.setJumps(new HashMap<String, Integer>());
+		final HashMap<String, Integer> jumps = new HashMap<>();
+		jumps.put("2", 0);
+		jumps.put("1", 1);
+		game.setJumps(jumps);
 
 		Board board = new Board();
 		board.setCells(new int[][]{

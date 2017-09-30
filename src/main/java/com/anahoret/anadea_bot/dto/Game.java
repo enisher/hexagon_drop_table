@@ -9,7 +9,8 @@ import java.util.HashMap;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Game {
+public class Game
+{
 
     private String id;
     private boolean first_turn;
@@ -18,7 +19,8 @@ public class Game {
     private Board board;
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Game{" +
                 "id='" + id + '\'' +
                 ", first_turn=" + first_turn +
@@ -33,5 +35,10 @@ public class Game {
         jumps = move.getJumps();
 
         board.applyChanges(move.getChanges());
+    }
+
+    public boolean jumpsAvailable(int color)
+    {
+        return jumps.getOrDefault(String.valueOf(color), 0) > 0;
     }
 }
