@@ -12,7 +12,7 @@ import java.util.Optional;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Board
+public class Board implements Cloneable
 {
 
     private int size;
@@ -77,5 +77,45 @@ public class Board
     public boolean checkIfEmpty(Point point)
     {
         return getColor(point) == 0;
+    }
+
+    public Board applyMove(ClientMove move){
+        Point from = new Point(move.getMove_from());
+        Point to = new Point(move.getMove_to());
+        Board nextState = clone();
+
+        int myColor = cells[from.getI()][from.getJ()];
+        nextState.cells[to.getI()][to.getJ()] = myColor;
+        if(!from.neighbors().contains(to)){ //jump, have to clean from
+            nextState.cells[from.getI()][from.getJ()] = 0;
+        }
+        for(Point neighbour: to.neighbors()){
+            if (!validate(neighbour)) continue;
+            int neighbourColor = nextState.cells[neighbour.getI()][neighbour.getJ()];
+            if (neighbourColor > 0 & neighbourColor != myColor){
+                nextState.cells[neighbour.getI()][neighbour.getJ()] = myColor;
+            }
+        }
+        return nextState;
+    }
+
+    @Override
+    protected Board clone(){
+        Board board = new Board();
+        board.setSize(size);
+        board.setCells(deepCopy(cells));
+        return board;
+    }
+
+    private static int[][] deepCopy(int[][] original) {
+        if (original == null) {
+            return null;
+        }
+
+        final int[][] result = new int[original.length][];
+        for (int i = 0; i < original.length; i++) {
+            result[i] = Arrays.copyOf(original[i], original[i].length);
+        }
+        return result;
     }
 }

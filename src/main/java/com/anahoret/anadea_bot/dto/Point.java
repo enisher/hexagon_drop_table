@@ -15,6 +15,10 @@ import java.util.stream.Collectors;
 @EqualsAndHashCode
 public class Point
 {
+    public Point(int[] point){
+        i = point[0];
+        j = point[1];
+    }
     private final int i, j;
 
     public int[] toArray()
