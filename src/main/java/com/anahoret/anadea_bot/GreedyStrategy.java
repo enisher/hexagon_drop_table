@@ -5,6 +5,7 @@ import com.anahoret.anadea_bot.dto.ClientMove;
 import com.anahoret.anadea_bot.dto.Game;
 import com.anahoret.anadea_bot.dto.Point;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.Comparator;
